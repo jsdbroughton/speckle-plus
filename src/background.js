@@ -1,21 +1,60 @@
-'use strict';
+import ObjectLoader from '@speckle/objectloader';
 
-// With background scripts you can communicate with popup
-// and contentScript files.
-// For more information on background script,
-// See https://developer.chrome.com/extensions/background_pages
+(function () {
+  const tabStorage = {};
+  const networkFilters = {
+    urls: ['https://*.speckle.dev/graphql', 'https://*.speckle.xyz/graphql'],
+  };
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === 'GREETINGS') {
-    const message = `Hi ${
-      sender.tab ? 'Con' : 'Pop'
-    }, my name is Bac. I am from Background. It's great to hear from you.`;
+  console.log('Speckle+ service worker registered.');
 
-    // Log message coming from the `request` parameter
-    console.log(request.payload.message);
-    // Send a response message
-    sendResponse({
-      message,
-    });
-  }
-});
+  chrome.webRequest.onBeforeRequest.addListener(
+    (details) => {
+      const initiator = new URL(details.initiator);
+      const url = new URL(details.url);
+
+      if (details.method == 'POST' && details.requestBody) {
+        var postedString = decodeURIComponent(
+          String.fromCharCode.apply(
+            null,
+            new Uint8Array(details.requestBody.raw[0].bytes)
+          )
+        );
+
+        var postedObject = JSON.parse(postedString);
+
+        if (
+          postedObject.operationName == 'Object' &&
+          initiator.hostname === url.hostname
+        ) {
+          console.debug({ details, postedObject });
+
+          let loader = new ObjectLoader({
+            serverUrl: details.initiator,
+            streamId: postedObject.variables.streamId,
+            objectId: postedObject.variables.id,
+            options: {
+              fullyTraverseArrays: false,
+              excludeProps: ['displayValue', 'displayMesh', '__closure'],
+            },
+          });
+
+          let obj = loader.getAndConstructObject();
+          obj.then((o) => {
+            chrome.tabs.query(
+              { active: true, currentWindow: true },
+              function (tabs) {
+                var port = chrome.tabs.connect(tabs[0].id, {
+                  name: 'speckle_plus',
+                });
+                port.postMessage(o);
+              }
+            );
+          });
+        }
+      }
+    },
+    networkFilters,
+    ['requestBody', 'extraHeaders']
+  );
+})();

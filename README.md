@@ -1,21 +1,15 @@
-# <img src="public/icons/icon_48.png" width="45" align="left"> Speckle Extension
+# Speckle+
 
-My Chrome Extension
+Speckle+ Chome extension extends the Speckle frontend and viewer with experimental
+features without requiring development on the base server itself.
 
 ## Features
 
-- Feature 1
-- Feature 2
+- Search for elements by nested property
+- Show/Hide elements by nested property
 
 ## Install
-
-[**Chrome** extension]()
 
 ## Contribution
 
 Suggestions and pull requests are welcomed!.
-
----
-
-This project was bootstrapped with [Chrome Extension CLI](https://github.com/dutiyesh/chrome-extension-cli)
-
