@@ -1,0 +1,37 @@
+#speckle-plus {
+  z-index: 9999;
+  position: fixed;
+  width: 50%;
+  height: calc(100vh - 110px);
+  right: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.overlay {
+  background: rgba(30, 30, 30, 0.8);
+  border: 1px solid white;
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  width: auto;
+  min-width: 250px;
+  height: auto;
+  min-height: 50%;
+  pointer-events: auto;
+  border-radius: 8px;
+  padding: 24px;
+  font-family: Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.theme--light ~ #speckle-plus .overlay {
+  background: rgba(255, 255, 255, 0.801);
+  border: 1px solid #000;
+}

@@ -4,19 +4,30 @@
   "description": "Speckle+ Chome extension extends the Speckle frontend.",
   "private": true,
   "scripts": {
-    "watch": "node ./node_modules/webpack/bin/webpack.js --mode=development --watch --config config/webpack.config.js",
-    "build": "node ./node_modules/webpack/bin/webpack.js --mode=production --config config/webpack.config.js"
-  },
-  "devDependencies": {
-    "copy-webpack-plugin": "^11.0.0",
-    "css-loader": "^6.7.1",
-    "file-loader": "^6.2.0",
-    "mini-css-extract-plugin": "^2.6.1",
-    "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0",
-    "webpack-merge": "^5.8.0"
+    "dev": "vite build --mode developmemnt",
+    "build": "vite build && concat -o dist/styles/speckle.css dist/styles/speckle.css dist/styles/main.css",
+    "serve": "vite preview",
+    "watch": "vite build --watch"
   },
   "dependencies": {
-    "@speckle/objectloader": "^2.9.0"
+    "@speckle/objectloader": "^2.9.2",
+    "vue": "^3.2.44",
+    "vuetify": "^3.0.0"
+  },
+  "devDependencies": {
+    "concat": "^1.0.3",
+    "@asigloo/prettier-config": "^0.2.0",
+    "@iconify/json": "^2.1.135",
+    "@speckle/objectloader": "^2.9.2",
+    "@vitejs/plugin-vue": "^3.2.0",
+    "@vue/compiler-sfc": "^3.2.44",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.18",
+    "sass": "^1.56.1",
+    "tailwindcss": "^3.2.2",
+    "unplugin-vue-components": "^0.22.9",
+    "vite": "^3.2.3",
+    "vite-plugin-chrome-extension": "^0.0.7",
+    "vite-plugin-icons": "^0.6.5"
   }
 }

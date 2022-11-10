@@ -1,0 +1,59 @@
+{
+  "manifest_version": 3,
+  "name": "Speckle+",
+  "version": "0.1.1",
+  "description": "Speckle+ Chome extension extends the Speckle frontend.",
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "assets/icon16-grey.png",
+      "48": "assets/icon48-grey.png",
+      "128": "assets/icon128-grey.png"
+    },
+    "default_title": "Speckle+"
+  },
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.speckle.xyz/streams/*/objects/*",
+        "https://*.speckle.xyz/streams/*/commits/*",
+        "https://*.speckle.dev/streams/*/objects/*",
+        "https://*.speckle.dev/streams/*/commits/*"
+      ],
+      "js": ["scripts/main.js"],
+      "css": ["styles/speckle.css"]
+    },
+    {
+      "matches": [
+        "https://*.speckle.xyz/streams/*/objects/*",
+        "https://*.speckle.xyz/streams/*/commits/*",
+        "https://*.speckle.dev/streams/*/objects/*",
+        "https://*.speckle.dev/streams/*/commits/*"
+      ],
+      "js": ["scripts/document_idle.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": [
+    "storage",
+    "webRequest",
+    "activeTab",
+    "declarativeContent",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": ["https://latest.speckle.dev/", "https://speckle.xyz/"],
+  "web_accessible_resources": [
+    {
+      "matches": ["<all_urls>"],
+      "resources": ["scripts/detector.js"]
+    }
+  ]
+}
