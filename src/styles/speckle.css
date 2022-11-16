@@ -10,7 +10,7 @@
 }
 
 .overlay {
-  background: rgba(30, 30, 30, 0.8);
+  background: rgba(30, 30, 30, 0.85);
   border: 1px solid white;
   position: absolute;
   bottom: 12px;
@@ -32,6 +32,6 @@ h1 {
 }
 
 .theme--light ~ #speckle-plus .overlay {
-  background: rgba(255, 255, 255, 0.801);
+  background: rgba(255, 255, 255, 0.85);
   border: 1px solid #000;
 }

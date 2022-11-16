@@ -10,9 +10,9 @@
   },
   "action": {
     "default_icon": {
-      "16": "assets/icon16-grey.png",
-      "48": "assets/icon48-grey.png",
-      "128": "assets/icon128-grey.png"
+      "16": "assets/icon16.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
     },
     "default_title": "Speckle+"
   },

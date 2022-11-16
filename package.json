@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@speckle/objectloader": "^2.9.2",
+    "random-words": "^1.2.0",
     "three.js": "^0.77.1",
     "uuid": "^9.0.0",
     "vue": "^3.2.44",

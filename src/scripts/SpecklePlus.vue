@@ -4,6 +4,7 @@
 import { defineComponent, ref, onMounted, reactive, toRefs } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
 import draggable from 'vuedraggable'
+import randomWords from 'random-words';
 
 export default defineComponent({
   setup() {
@@ -51,7 +52,8 @@ export default defineComponent({
       // You'll love how minimal this app is!
       views: [],
       activeView: 0,
-      activeGuid: null
+      activeGuid: null,
+      names: randomWords({ exactly: 50, wordsPerString: 2 })
     }
   },
   methods: {
@@ -68,7 +70,7 @@ export default defineComponent({
       if (coords) {
         // its all to easy to press save before the url is updated!
         if (this.views.length <= 0 || !this.views.slice(-1) || this.views.slice(-1)[0] && this.views.slice(-1)[0].coords !== coords) {
-          this.views.push({ coords, guid: uuidv4() }
+          this.views.push({ coords, guid: uuidv4(), name: this.names[Math.round(Math.random() * 50)] }
           )
         }
       }
@@ -109,6 +111,9 @@ export default defineComponent({
       if (this.views[this.activeView]) {
         this.setView(this.views[this.activeView].coords, this.activeView)
       }
+    },
+    toggleVisible() {
+      this.visible = !this.visible;
     }
   }
 }
@@ -117,8 +122,11 @@ export default defineComponent({
 
 <template>
   <div class="overlay" v-show="visible">
-    <h1 class="header">Speckle <v-btn size="x-small" flat @click="addView">
-        <v-icon size="x-small" icon="mdi-plus"></v-icon>
+    <h1 class="header"><span>Speckle <v-btn size="x-small" icon @click="addView">
+          <v-icon size="x-small" icon="mdi-plus"></v-icon>
+        </v-btn></span>
+      <v-btn size="x-small" icon @click="toggleVisible">
+        <v-icon size="x-small" icon="mdi-close"></v-icon>
       </v-btn>
     </h1>
     <draggable v-model="views" item-key="guid" @start="onStart" @end="onEnd" class="view-list">
@@ -129,8 +137,9 @@ export default defineComponent({
           <v-btn size="x-small" flat @click="setView(view.coords, index)">
             <v-icon size="x-small" icon="mdi-eye"></v-icon>
           </v-btn>
-          {{ `${view.guid.split('-')[0]}` }}
-          <v-btn size="x-small" flat @click="deleteView(view.guid, index)">
+          <!-- <span class="caption">{{ `${view.guid.split('-')[0]}` }}</span> -->
+          <span class="text-caption">{{ view.name }}</span>
+          <v-btn size="x-small" flat @click="deleteView(view.name, index)">
             <v-icon size="x-small" icon="mdi-delete"></v-icon>
           </v-btn>
         </div>
@@ -140,17 +149,20 @@ export default defineComponent({
           <v-btn size="x-small" flat @click="prevView()">
             <v-icon size="x-small" icon="mdi-arrow-left-drop-circle-outline"></v-icon>
           </v-btn>
-          <!-- 
-            <v-btn size="x-small" @click="play()" icon="mdi-play"></v-btn>
-            <v-btn size="x-small" @click="pause()" icon="mdi-pause"></v-btn> 
-          -->
+
+          <v-btn disabled size="x-small" flat @click="play()">
+            <v-icon icon="mdi-play" size="x-small"></v-icon>
+          </v-btn>
+          <v-btn disabled size="x-small" flat @click="pause()">
+            <v-icon icon="mdi-pause" size="x-small"></v-icon>
+          </v-btn>
           <v-btn size="x-small" flat @click="nextView()">
             <v-icon size="x-small" icon="mdi-arrow-right-drop-circle-outline"></v-icon>
           </v-btn>
         </div>
       </template>
     </draggable>
-    <pre class="text-caption">{{ `Object Data Tree Loaded: Children Count -> ${JSON.stringify(
+    <pre class="text-caption object-data">{{ `Object Data Tree Loaded: Children Count -> ${JSON.stringify(
     objectData && objectData.totalChildrenCount
   )}`
     }} </pre>
@@ -169,7 +181,7 @@ export default defineComponent({
   border-radius: 4px;
   height: 36px;
   align-items: center;
-  border: 1px transparent solid;
+  border: 1px #666 solid;
   padding: 6px;
   margin-left: -8px;
   margin-right: -8px;
@@ -177,7 +189,7 @@ export default defineComponent({
 }
 
 .active {
-  border-color: #ff69b4;
+  border-color: #fff;
 }
 
 .footer {
@@ -189,12 +201,42 @@ export default defineComponent({
   margin-top: 1em;
 }
 
+.footer button.v-btn--disabled {
+  color: #666;
+}
+
 .header button {
-  color: hotpink;
+  border-radius: 50%;
+  scale: 75%;
+  margin-top: -3px;
+  margin-left: -6px;
 }
 
 .header,
-.view-lists {
+.view-list {
   margin-bottom: 1em;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.theme--light~#speckle-plus .overlay .draggable {
+  border-color: #999;
+}
+
+.theme--light~#speckle-plus .overlay .active {
+  border-color: #000;
+}
+
+.object-data {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  white-space: break-spaces;
+  border-top: solid 1px;
+  padding-top: 4px;
 }
 </style>
