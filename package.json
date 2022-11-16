@@ -11,17 +11,19 @@
   },
   "dependencies": {
     "@speckle/objectloader": "^2.9.2",
+    "three.js": "^0.77.1",
+    "uuid": "^9.0.0",
     "vue": "^3.2.44",
+    "vuedraggable": "^4.1.0",
     "vuetify": "^3.0.0"
   },
   "devDependencies": {
-    "concat": "^1.0.3",
     "@asigloo/prettier-config": "^0.2.0",
     "@iconify/json": "^2.1.135",
-    "@speckle/objectloader": "^2.9.2",
     "@vitejs/plugin-vue": "^3.2.0",
     "@vue/compiler-sfc": "^3.2.44",
     "autoprefixer": "^10.4.13",
+    "concat": "^1.0.3",
     "postcss": "^8.4.18",
     "sass": "^1.56.1",
     "tailwindcss": "^3.2.2",

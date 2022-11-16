@@ -5,5 +5,7 @@
       "name": "Speckle+"
     }
   ],
-  "settings": {}
+  "settings": {
+    "discord.enabled": true
+  }
 }
