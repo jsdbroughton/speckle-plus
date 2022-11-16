@@ -117,34 +117,40 @@ export default defineComponent({
 
 <template>
   <div class="overlay" v-show="visible">
-    <h1>Speckle+</h1>
-    <draggable v-model="views" item-key="guid" @start="onStart" @end="onEnd">
-      <template #header>
-        <div class="header">
-          <v-btn size="x-small" @click="addView" icon="mdi-plus"></v-btn>
-        </div>
-      </template>
+    <h1 class="header">Speckle <v-btn size="x-small" flat @click="addView">
+        <v-icon size="x-small" icon="mdi-plus"></v-icon>
+      </v-btn>
+    </h1>
+    <draggable v-model="views" item-key="guid" @start="onStart" @end="onEnd" class="view-list">
       <template #item="{ element: view, index }">
         <div class="draggable" :class="{ active: index === activeView }">
-          <v-btn size="x-small" @click="setView(view.coords, index)" icon="mdi-eye"></v-btn>
+          <v-btn size="x-small" flat @click="setView(view.coords, index)">
+            <v-icon size="x-small" icon="mdi-eye"></v-icon>
+          </v-btn>
           {{ `${view.guid.split('-')[0]}` }}
-          <v-btn size="x-small" @click="deleteView(view.guid, index)" icon="mdi-delete"></v-btn>
+          <v-btn size="x-small" flat @click="deleteView(view.guid, index)">
+            <v-icon size="x-small" icon="mdi-delete"></v-icon>
+          </v-btn>
         </div>
       </template>
       <template #footer>
         <div class="footer" v-if="views.length > 1">
-          <v-btn size="x-small" @click="prevView()" icon="mdi-arrow-left-drop-circle-outline"></v-btn>
+          <v-btn size="x-small" flat @click="prevView()">
+            <v-icon size="x-small" icon="mdi-arrow-left-drop-circle-outline"></v-icon>
+          </v-btn>
           <!-- 
             <v-btn size="x-small" @click="play()" icon="mdi-play"></v-btn>
             <v-btn size="x-small" @click="pause()" icon="mdi-pause"></v-btn> 
           -->
-          <v-btn size="x-small" @click="nextView()" icon="mdi-arrow-right-drop-circle-outline"></v-btn>
+          <v-btn size="x-small" flat @click="nextView()">
+            <v-icon size="x-small" icon="mdi-arrow-right-drop-circle-outline"></v-icon>
+          </v-btn>
         </div>
       </template>
     </draggable>
     <pre class="text-caption">{{ `Object Data Tree Loaded: Children Count -> ${JSON.stringify(
-        objectData && objectData.totalChildrenCount
-      )}`
+    objectData && objectData.totalChildrenCount
+  )}`
     }} </pre>
   </div>
 </template>
@@ -158,10 +164,18 @@ export default defineComponent({
   cursor: -webkit-grab;
   display: flex;
   justify-content: space-between;
+  border-radius: 4px;
+  height: 36px;
+  align-items: center;
+  border: 1px transparent solid;
+  padding: 6px;
+  margin-left: -8px;
+  margin-right: -8px;
+  margin-bottom: 4px;
 }
 
 .active {
-  background-color: hotpink;
+  border-color: #ff69b4;
 }
 
 .footer {
@@ -173,7 +187,8 @@ export default defineComponent({
   margin-top: 1em;
 }
 
-.header {
+.header,
+.view-lists {
   margin-bottom: 1em;
 }
 </style>
