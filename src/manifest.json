@@ -37,7 +37,7 @@
         "https://*.speckle.dev/streams/*/objects/*",
         "https://*.speckle.dev/streams/*/commits/*"
       ],
-      "js": ["scripts/document_idle.js"],
+      "js": ["scripts/on_document_idle.js"],
       "run_at": "document_idle"
     }
   ],
@@ -47,13 +47,14 @@
     "activeTab",
     "declarativeContent",
     "scripting",
-    "tabs"
+    "tabs",
+    "history"
   ],
   "host_permissions": ["https://latest.speckle.dev/", "https://speckle.xyz/"],
   "web_accessible_resources": [
     {
       "matches": ["<all_urls>"],
-      "resources": ["scripts/detector.js"]
+      "resources": ["scripts/speckle_plus.js"]
     }
   ]
 }

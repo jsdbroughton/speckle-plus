@@ -1,17 +1,16 @@
 import { createApp } from 'vue';
-import Speckle from './SpecklePlus.vue';
+import SpecklePlus from './SpecklePlus.vue';
 import '@/styles/speckle.css';
 
+// UI layout container
 const SPECKLE_PLUS = 'speckle-plus';
-
-let specklePlus = document.getElementById(SPECKLE_PLUS);
-if (specklePlus) {
-  specklePlus.innerHTML = '';
+let specklePlusLayout = document.getElementById(SPECKLE_PLUS);
+if (specklePlusLayout) {
+  specklePlusLayout.innerHTML = '';
 }
-specklePlus = document.createElement('div');
-specklePlus.setAttribute('id', SPECKLE_PLUS);
-
-document.body.append(specklePlus);
+specklePlusLayout = document.createElement('div');
+specklePlusLayout.setAttribute('id', SPECKLE_PLUS);
+document.body.append(specklePlusLayout);
 
 // Vuetify
 import 'vuetify/styles';
@@ -24,7 +23,7 @@ const vuetify = createVuetify({
   directives,
 });
 
-const vm = createApp(Speckle).use(vuetify).mount(specklePlus);
+const vm = createApp(SpecklePlus).use(vuetify).mount(specklePlusLayout);
 
 chrome.runtime.onMessage.addListener((message) => {
   if (message.toggleVisible && vm) {
