@@ -9,14 +9,14 @@ Speckle+ is a Chrome Extension that intercepts the Speckle frontend requests to 
 Users can record a series of “scenes”
 
 - [ ] User navigates to a view, adds filters, overlays
-- [ ] User “Saves” to presentation history list of views
-- [ ] User can change the order of views
+- [x] User “Saves” to presentation history list of views
+- [x] User can change the order of views
 - [ ] User can allocate names to the views
-- [ ] Users can play back the views
+- [x] Users can play back the views
   - [ ] User selects Presenter mode
   - [ ] Other Speckle UI hides
   - [ ] Back and Forward buttons replace the standard view tools
-  - [ ] Back and forward cycle through the saved views
+  - [x] Back and forward cycle through the saved views
   - [ ] Exit Presenter mode shows the default UI
 - [ ] Users can export/import Presentations
   - [ ] Import/Export as JSON
@@ -41,4 +41,5 @@ Users can record a series of “scenes”
 Methodologies to test
 
 - [x] Use WebRequest intercepts to repeat the current viewer query
+- [x] Inject objectloader results in extension UI
 - [ ] As the viewer loads up the browser cache, use that instead
