@@ -123,7 +123,9 @@ export default defineComponent({
     </h1>
     <draggable v-model="views" item-key="guid" @start="onStart" @end="onEnd" class="view-list">
       <template #item="{ element: view, index }">
-        <div class="draggable" :class="{ active: index === activeView }">
+        <div class="draggable" :class="{
+          active: index === activeView, 'elevation-5': index === activeView
+        }">
           <v-btn size="x-small" flat @click="setView(view.coords, index)">
             <v-icon size="x-small" icon="mdi-eye"></v-icon>
           </v-btn>
@@ -185,6 +187,10 @@ export default defineComponent({
 
 .footer button {
   margin-top: 1em;
+}
+
+.header button {
+  color: hotpink;
 }
 
 .header,
